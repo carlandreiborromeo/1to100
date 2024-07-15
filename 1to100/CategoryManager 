@@ -1,0 +1,36 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class CategoryManager
+{
+	public static List<(int, string)> GetCategories()
+	{
+		List<(int Id, string Name)> GetCategory= new List<(int, string)>
+		{
+
+			(1, "Toiletries"),
+			(2, "Frozen Foods"),
+			(3, "Health Care Items")
+
+		};
+		return GetCategory;
+	}
+
+	public static void ShowCategories(List<(int Id, string Name)> categories)
+	{
+		Console.Clear();
+		Console.ForegroundColor = ConsoleColor.Cyan;
+		Console.WriteLine("==== Welcome to the Store ====");
+		Console.ForegroundColor = ConsoleColor.Green;
+		Console.WriteLine("\nLIST OF CATEGORY:");
+		foreach ((int Id, string Name) category in categories)
+		{
+			Console.ForegroundColor = ConsoleColor.White;
+			Console.WriteLine($"{category.Id}. {category.Name}");
+		}
+		Console.WriteLine("4. Checkout");
+		Console.ForegroundColor = ConsoleColor.Magenta;
+		Console.Write("Enter your choice: ");
+	}
+}

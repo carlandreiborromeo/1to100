@@ -1,0 +1,70 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class ItemManager
+{
+    public static List<(string, string, double)> GetItems()
+    {
+        List<(string Category, string Item, double Price)> getItem= new List<(string, string, double)>
+        {
+            ("Toiletries", "Toothpaste", 20),
+            ("Toiletries", "Shampoo", 15),
+            ("Toiletries", "Soap", 50),
+            ("Toiletries", "Toothbrush", 30),
+            ("Toiletries", "Deodorant", 45),
+            ("Toiletries", "Lotion", 60),
+            ("Toiletries", "Towel", 70),
+            ("Toiletries", "Body Soap", 80),
+            ("Toiletries", "Toilet Paper", 35),
+            ("Toiletries", "Alcohol", 18),
+            ("Frozen Foods", "Pizza", 85),
+            ("Frozen Foods", "Ice Cream", 50),
+            ("Frozen Foods", "Frozen Vegetables", 35),
+            ("Frozen Foods", "Chicken Nuggets", 70),
+            ("Frozen Foods", "French Fries", 55),
+            ("Frozen Foods", "Fish Sticks", 60),
+            ("Frozen Foods", "Frozen Patties", 80),
+            ("Frozen Foods", "Frozen Siomai", 75),
+            ("Frozen Foods", "Ice Cubes", 25),
+            ("Frozen Foods", "Frozen Dumplings", 65),
+            ("Health Care Items", "Vitamins", 120),
+            ("Health Care Items", "Bandages", 20),
+            ("Health Care Items", "Pain Reliever", 100),
+            ("Health Care Items", "Thermometer", 75),
+            ("Health Care Items", "Gauze", 35),
+            ("Health Care Items", "Face Mask", 30),
+            ("Health Care Items", "Antibiotic Ointment", 70),
+            ("Health Care Items", "Cough Syrup", 85),
+            ("Health Care Items", "Eye Drops", 55),
+            ("Health Care Items", "Cotton Balls", 10)
+        };
+		return getItem;
+    }
+    /*this method list the items in the category chosen by the user
+	this also contain another method(GtevalidInput) that manage the chosen number 
+	of the item of the user*/
+    public static (string Category, string Item, double Price) SelectItem(string categoryName, List<(string Category, string Item, double Price)> items)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"\n==== Items in {categoryName} ====");
+        Console.ForegroundColor = ConsoleColor.White;
+        List<(string Category, string Item, double Price)> categoryItems = items.FindAll(item => item.Category == categoryName);
+        for (int i = 0; i < categoryItems.Count; i++)
+        {
+             /*the lambda expression
+			 (FindAll(item => item.Category == categoryName))
+			 is used because all the categories 
+			 and items are listed in 1 list this is used tp 
+			 filer so that the items that will appear will match
+			 based on the category chosen by the user*/
+            Console.WriteLine($"{i + 1}. {categoryItems[i].Item} - PhP{categoryItems[i].Price}");
+        }
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.Write("Select an item number to add to cart: ");
+        int itemChoice = InputManager.GetValidInput(1, categoryItems.Count);
+
+        return categoryItems[itemChoice - 1];
+    }
+}

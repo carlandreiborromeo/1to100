@@ -1,0 +1,53 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class CartManager
+{
+        /*The DisplayCart method takes a list of selected items, 
+	displays each item's category, name, quantity, 
+	and total price, and calculates and displays the 
+	total amount for all items in the cart*/
+    public static bool DisplayCart(List<(string Category, string Item, double Price, int Quantity)> selectedItems)
+    {
+        Console.Clear();
+        double totalAmount = 0;
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("======== SHOPPING CART ========");
+        foreach ((string Category, string Item, double Price, int Quantity) selectedItem in selectedItems)
+        {
+            double itemTotal = selectedItem.Price * selectedItem.Quantity;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"{selectedItem.Category} - {selectedItem.Item} (x{selectedItem.Quantity}): PhP{itemTotal}");
+            totalAmount += itemTotal;
+        }
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine($"\nTotal Amount: PhP{totalAmount}");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("\n===============================");
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.Write("\nDo you want to checkout? (yes/no): ");
+        return Console.ReadLine().ToLower() == "yes";
+    }
+
+    public static void DisplayFinalCart(List<(string Category, string Item, double Price, int Quantity)> selectedItems)
+    {
+        Console.Clear();
+        double totalAmount = 0;
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("========= RECEIPT =======");
+        foreach ((string Category, string Item, double Price, int Quantity) selectedItem in selectedItems)
+        {
+            double itemTotal = selectedItem.Price * selectedItem.Quantity;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"{selectedItem.Category} - {selectedItem.Item} (x{selectedItem.Quantity}):PhP{itemTotal}");
+            totalAmount += itemTotal;
+        }
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine($"\nTotal Amount: PhP{totalAmount}");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\n===============================");
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("\nThank you and Come Again!");
+    }
+}

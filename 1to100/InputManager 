@@ -1,0 +1,41 @@
+using System;
+using System.Linq;
+using System.Collections.Generic;
+
+public class InputManager
+{    
+     /*this method gets a valid input 
+		from the user ranging from 1-4
+		int.tryparse converts string<input> to int<choice>*/
+    public static int GetValidInput(int min, int max, string prompt = "Enter your choice: ")
+    {
+        int choice;
+        while (true)
+        {
+            string input = Console.ReadLine();
+            if (int.TryParse(input, out choice) && choice >= min && choice <= max)
+            {
+                break;
+            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Invalid choice. " + prompt);
+        }
+        return choice;
+    }
+
+    public static int GetValidQuantityInput(string prompt)
+    {
+        int quantity;
+        while (true)
+        {
+            Console.Write(prompt);
+            string input = Console.ReadLine();
+            if (int.TryParse(input, out quantity) && quantity > 0)
+            {
+                break;
+            }
+            Console.Write("Invalid quantity. " + prompt);
+        }
+        return quantity;
+    }
+}
